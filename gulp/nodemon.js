@@ -12,7 +12,7 @@ var config = require('./config.json')
 
 gulp.task('server', function () {
   nodemon({
-    script: 'server.js',
+    script: 'run-server.js',
     ext: 'js, json',
     ignore: [config.paths.public + '*',
              config.paths.assets + '*',

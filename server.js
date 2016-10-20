@@ -8,7 +8,6 @@ var favicon = require('serve-favicon')
 var app = express()
 var documentationApp = express()
 var bodyParser = require('body-parser')
-var browserSync = require('browser-sync')
 var config = require('./app/config.js')
 var utils = require('./lib/utils.js')
 var packageJson = require('./package.json')
@@ -181,30 +180,5 @@ if (useDocumentation) {
     }
   })
 }
-
-console.log('\nGOV.UK Prototype kit v' + releaseVersion)
-// Display warning not to use kit for production services.
-console.log('\nNOTICE: the kit is for building prototypes, do not use it for production services.')
-
-// start the app
-utils.findAvailablePort(app, function (port) {
-  console.log('Listening on port ' + port + '   url: http://localhost:' + port)
-  if (env === 'production') {
-    app.listen(port)
-  } else {
-    app.listen(port - 50, function () {
-      browserSync({
-        proxy: 'localhost:' + (port - 50),
-        port: port,
-        ui: false,
-        files: ['public/**/*.*', 'app/views/**/*.*'],
-        ghostmode: false,
-        open: false,
-        notify: false,
-        logLevel: 'error'
-      })
-    })
-  }
-})
 
 module.exports = app

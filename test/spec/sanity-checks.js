@@ -1,4 +1,5 @@
-/* global describe, it, before */
+/* eslint-env mocha */
+
 var request = require('supertest')
 var assert = require('assert')
 var path = require('path')
@@ -9,10 +10,15 @@ var fs = require('fs')
  */
 describe('The prototype kit', function () {
   var app
+  var server
 
-  before(function (done) {
+  before(function () {
     app = require('../../server')
-    done()
+    server = app.listen(3000)
+  })
+
+  after(function () {
+    server.close()
   })
 
   it('should generate assets into the /public folder', function () {
